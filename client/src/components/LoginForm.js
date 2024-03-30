@@ -36,7 +36,7 @@ const LoginForm = () => {
     }
 
     if (isLoggedIn) {
-        return <Navigate to="/" />
+        return <Navigate to="/home" />
     }
 
     return (

@@ -26,7 +26,7 @@ const Home = () => {
     }, [])
 
     if (error) {
-        return <Navigate to='/login' />
+        return <Navigate to='/' />
     }
 
     return (

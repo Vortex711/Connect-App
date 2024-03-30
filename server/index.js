@@ -5,12 +5,15 @@ const mongoose = require('mongoose')
 const cookieParser = require('cookie-parser')
 
 const userRoutes = require('./routes/routes')
+const { checkUser } = require('./middleware/authMiddleware')
 
 const app = express()
 
 app.use(express.json())
 app.use(cookieParser())
 app.use('/api/users', userRoutes)
+
+app.get('*', checkUser)
 
 const PORT = process.env.PORT || 4000
 const MONGO_URI = process.env.MONGO_URI

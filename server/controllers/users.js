@@ -84,4 +84,10 @@ const loginUser = async (req, res) => {
     }
 }
 
-module.exports = { getUsers, addUser , loginUser}
+const logoutUser = (req, res) => {
+    console.log('Logging out')
+    res.cookie('jwt', '', { maxAge: 1 / 1000 })
+    res.status(200).json('Done')
+}
+
+module.exports = { getUsers, addUser , loginUser, logoutUser}
