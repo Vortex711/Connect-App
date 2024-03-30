@@ -1,10 +1,8 @@
-require('dotenv').config()
-
 const User = require('../models/users')
 const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
 
-const handleErrors = (err) => {
+const handleSignUpErrors = (err) => {
     console.log(err.message, err.code)
     let errors = { 'username': '', 'password': '', 'name': '', 'age': '', 'gender': ''}
 
@@ -19,6 +17,21 @@ const handleErrors = (err) => {
             errors[properties.path] = properties.message
         });
     }
+    return errors
+}
+
+const handleLoginErrors = (err) => {
+    console.log(err.message, err.code)
+    let errors = { 'username': '', 'password': ''}
+
+    if (err.message === 'Invalid username!') {
+        errors['username'] = err.message
+    } 
+
+    if (err.message === 'Invalid password!') {
+        errors['password'] = err.message
+    } 
+
     return errors
 }
 
@@ -47,10 +60,28 @@ const addUser = async (req, res) => {
         })
         res.status(201).json({user: user._id})
     } catch(err){
-        const errors = handleErrors(err)
+        const errors = handleSignUpErrors(err)
         console.log(errors)
         res.status(400).json(errors)
     }
 }
 
-module.exports = { getUsers, addUser }
+const loginUser = async (req, res) => {
+    console.log('LOGIN USER')
+    const {username, password} = req.body
+    console.log(username, password)
+    try {
+        const user = await User.login(username, password)
+        const token = createToken(user._id)
+        res.cookie('jwt', token, {
+            httpOnly: true, maxAge: maxAge * 1000
+        })
+        res.status(200).json({user: user._id})
+    }
+    catch(err) {
+        const errors = handleLoginErrors(err)
+        res.status(400).json(errors)
+    }
+}
+
+module.exports = { getUsers, addUser , loginUser}

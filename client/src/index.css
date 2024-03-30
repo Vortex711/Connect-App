@@ -1,13 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;800&family=VT323&display=swap');
 
+:root {
+  --vdark: #132a13;
+  --dark: #31572c;
+  --primary: #4f772d;
+  --light: #90a955;
+  --vlight: #ecf39e;
+}
+
 body {
-  background: #e0d9cd;
+  background: linear-gradient(to bottom right, var(--primary), var(--vlight));
   margin: 0;
   font-family: "Poppins";
 }
 
 header {
-  background-color: #D8C3A5;
+  background: linear-gradient(to bottom right, var(--vdark), var(--dark));
 }
 
 header .container { 
@@ -25,12 +33,12 @@ header .auth-links{
 }
 
 header a{
-  color: #E85A4F;
+  color: var(--vlight) ;
   text-decoration: none;
 }
 
 header a:hover{
-  color: #E98074;
+  color: var(--light);
 }
 
 .pages{
@@ -68,7 +76,7 @@ input {
 }
 
 form button {
-  background: #E85A4F;
+  background: var(--dark);
   border: 0;
   color: #fff;
   padding: 10px 50px;
@@ -80,14 +88,14 @@ form button {
 }
 
 form button:hover{
-  background: #E98074;
+  background: var(--light);
 }
 
 .form-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #D8C3A5;
+  background-color: var(--vlight);
   width: 400px;
   height: fit-content;
   border-radius: 8px;
@@ -102,14 +110,14 @@ form button:hover{
 }
 
 .user-container{
-  background-color: #D8C3A5;
+  background-color: var(--vlight);
   border-radius: 8px;
   padding: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .user-container h3{
-  color: #E85A4F;
+  color: var(--dark);
 }
 
 .error {
@@ -121,7 +129,7 @@ form button:hover{
 
 footer {
   text-align: center;
-  color: grey;
+  color: var(--dark);
   min-height: 100vh;
 }
 

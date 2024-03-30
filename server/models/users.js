@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema({
         required: [true, 'Please enter the username!'],
         unique: true,
         lowercase: true,
-        validate: [isAlphanumeric, 'Please enter a valid email!']
+        validate: [isAlphanumeric, 'Please enter a valid username!']
     },
     password: {
         type: String,
@@ -50,6 +50,24 @@ userSchema.post('save', (doc, next) => {
     console.log("New user was created and saved!", doc)
     next()
 })
+
+userSchema.statics.login = async function (username, password) {
+    
+    const user = await this.findOne({username})
+
+    if (user) {
+        console.log('User exists!')
+        console.log(user)
+        const auth = await bcrypt.compare(password, user.password)
+        if (auth) {
+            console.log('User authenticated!')
+            return user
+        }
+        
+        throw Error('Invalid password!')
+    }
+    throw Error('Invalid username!')
+}
 
 const Users = mongoose.model('user', userSchema)
 

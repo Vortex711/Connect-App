@@ -1,15 +1,13 @@
 const express = require('express')
-const { getUsers, addUser } = require('../controllers/users')
+const { getUsers, addUser, loginUser } = require('../controllers/users')
+const requireAuth = require('../middleware/authMiddleware')
 
 const router = express.Router()
 
-router.get('/home', getUsers)
+router.get('/home', requireAuth, getUsers)
 
 router.post('/signup', addUser)
 
-router.get('/setcookie', (req, res) => {
-    res.cookie('newUser', false)
-    res.send('You got the cookies')
-})
+router.post('/login', loginUser)
 
 module.exports = router
