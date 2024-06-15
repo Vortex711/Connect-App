@@ -2,8 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Home from './pages/Home';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
-
-import Navbar from './components/Navbar';
+import User from './pages/UserProfile';
 import Footer from './components/Footer';
 import Landing from './pages/Landing';
 import Logout from './pages/Logout';
@@ -12,7 +11,6 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Navbar/>
         <div className='pages'>
           <Routes>
             <Route 
@@ -34,6 +32,10 @@ function App() {
             <Route
               path='/logout'
               element={<Logout/>}
+            />
+            <Route 
+              path='/user/:userId' 
+              element={<User/>}
             />
           </Routes>
         </div>

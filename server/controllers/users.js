@@ -49,6 +49,19 @@ const getUsers = async (req, res) => {
     res.status(200).json(users)
 }
 
+const getUser =  async (req, res) => {
+    console.log('GET SINGLE USER')
+    const { userId } = req.params
+    console.log(userId)
+    try {
+        const user = await User.findById(userId)
+        return res.status(200).json(user)
+    } catch(err) {
+        console.log(err)
+        return res.status(400).json(err)
+    }
+}
+
 const addUser = async (req, res) => {
     console.log('POST USER')
     const {username, password, name, age, gender} = req.body
@@ -90,4 +103,4 @@ const logoutUser = (req, res) => {
     res.status(200).json('Done')
 }
 
-module.exports = { getUsers, addUser , loginUser, logoutUser}
+module.exports = { getUsers, getUser, addUser , loginUser, logoutUser}

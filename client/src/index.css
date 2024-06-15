@@ -14,30 +14,31 @@ body {
   font-family: "Poppins";
 }
 
-header {
+.header {
   background: linear-gradient(to bottom right, var(--vdark), var(--dark));
+  border-radius: 8px 8px 0px 0px;
 }
 
-header .container { 
+.header .container { 
   max-width: 1400px;
-  margin: 0 auto;
+  margin: 0px;
   padding: 10px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-header .auth-links{
+.auth-links{
   display: flex;
   gap: 40px
 }
 
-header a{
+.header a{
   color: var(--vlight) ;
   text-decoration: none;
 }
 
-header a:hover{
+.header a:hover{
   color: var(--light);
 }
 
@@ -51,8 +52,8 @@ h1 {
 
 .pages{
   max-width: 1400px;
+  margin: 0px;
   padding: 20px;
-  margin: 0 auto;
 }
 
 .users{
@@ -83,7 +84,7 @@ input {
   box-sizing: border-box;
 }
 
-form button {
+form button, .profile-container button{
   background: var(--dark);
   border: 0;
   color: #fff;
@@ -93,6 +94,7 @@ form button {
   cursor: pointer;
   font-size: 16px;
   margin-top: 20px;
+  margin-right: 20px;
 }
 
 form button:hover{
@@ -117,15 +119,45 @@ form button:hover{
   text-align: center;
 }
 
-.user-container{
+.user-container, .welcome-container, .profile-container{
   background-color: var(--vlight);
   border-radius: 8px;
   padding: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-container p {
+  font-size: larger;
+}
+
+.welcome-container , .users, .profile-container{
+  border-radius: 0px 0px 8px 8px;
+}
+
+.users {
+  background-color: var(--primary);
+}
+
 .user-container h3{
   color: var(--dark);
+}
+
+.user-link {
+  color: black;
+  text-decoration: none;
+  position: relative;
+  z-index: 1;
+}
+
+.user-link:hover {
+  opacity: 0.75;
 }
 
 .error {

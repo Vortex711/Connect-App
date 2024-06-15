@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import User from "../components/User"
 import { Navigate } from "react-router-dom"
+import Navbar from "../components/Navbar"
 
 const Home = () => {
     const [users, setUsers] = useState(null)
@@ -31,6 +32,7 @@ const Home = () => {
 
     return (
         <div className="home">
+            <Navbar logged= {true} />
             <div className="users">
                 {users && users.map((user) => (
                     <User key={user._id} user={user}></User>

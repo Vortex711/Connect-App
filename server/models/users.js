@@ -27,15 +27,27 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Please enter your gender!']
     },
-    overallRatings: {
-        appearance: {
-            type: Number,
-            default: 0.0
-        },
-        personality: {
-            type: Number,
-            default: 0.0
-        }
+    appearanceSum: {
+        type: Number,
+        default: 0.0
+    },
+    appearance: {
+        type: Number,
+        default: 0.0,
+        set: value => parseFloat(value.toFixed(2))
+    },
+    personalitySum: {
+        type: Number,
+        default: 0.0
+    },
+    personality: {
+        type: Number,
+        default: 0.0,
+        set: value => parseFloat(value.toFixed(2))
+    },
+    ratingCount: {
+        type: Number, 
+        default: 0
     }
     
 }, { timestamps: true })

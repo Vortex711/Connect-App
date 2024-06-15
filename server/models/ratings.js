@@ -9,16 +9,19 @@ const ratingSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    domain: {
-        type: String,
-        required: true
-    },
-    rating: {
+    appearance: {
         type: Number,
-        required: true
+        required: true,
+        set: value => parseFloat(value.toFixed(2))
+    },
+    personality: {
+        type: Number,
+        required: true,
+        set: value => parseFloat(value.toFixed(2))
     },
     content: {
-        type: String
+        type: String,
+        default: ''
     }
 }, { timestamps: true })
 

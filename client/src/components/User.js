@@ -1,9 +1,13 @@
+import { Link } from "react-router-dom"
+
 const User = ({user}) => {
     return (
         <div className="user-container">
-            <h3>{user.username}</h3>
-            <p><strong>Appearance: {user.overallRatings.appearance}</strong></p>
-            <p><strong>Personality: {user.overallRatings.personality}</strong></p>
+            <Link className="user-link" to={`/user/${user._id}`}>
+                <h3>{user.username}</h3>
+                <p><strong>Appearance: {user.appearance}</strong></p>
+                <p><strong>Personality: {user.personality}</strong></p>
+            </Link>
         </div>
     )
 }

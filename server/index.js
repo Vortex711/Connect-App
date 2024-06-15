@@ -4,7 +4,8 @@ const express = require('express')
 const mongoose = require('mongoose')
 const cookieParser = require('cookie-parser')
 
-const userRoutes = require('./routes/routes')
+const userRoutes = require('./routes/userRoutes')
+const ratingRoutes = require('./routes/ratingRoutes')
 const { checkUser } = require('./middleware/authMiddleware')
 
 const app = express()
@@ -12,8 +13,7 @@ const app = express()
 app.use(express.json())
 app.use(cookieParser())
 app.use('/api/users', userRoutes)
-
-app.get('*', checkUser)
+app.use('/api/ratings', ratingRoutes)
 
 const PORT = process.env.PORT || 4000
 const MONGO_URI = process.env.MONGO_URI
