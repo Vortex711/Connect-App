@@ -56,6 +56,16 @@ h1 {
   padding: 20px;
 }
 
+.loading {
+  font-size: large;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .users{
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -73,6 +83,14 @@ h1 {
 label, input{
   display: block;
   margin: 5px;
+}
+
+select, textarea{
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
 }
 
 input {

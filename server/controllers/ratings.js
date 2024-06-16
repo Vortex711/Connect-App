@@ -3,6 +3,7 @@ const User = require('../models/users')
 const mongoose = require('mongoose')
 
 const updateRating = async (req, res) => {
+    console.log("Updating rating")
     const { userId } = req.params
     const appearance = parseFloat(req.body.appearance)
     const personality = parseFloat(req.body.personality)
@@ -37,20 +38,21 @@ const updateRating = async (req, res) => {
 }
 
 const isRated = async (req, res) => {
-    console.log('CHEKING IF RATED')
+    console.log('CHECKING IF RATED')
     const { username } = req.params
     console.log(username)
     try {
         const rating = await Rating.findOne({reviewerUsername: res.locals.user.username, reviewedUsername: username})
-        let rated = false
+        let status = {rated: false}
         if (rating) {
-            rated = true
+            status.rated = true
         } 
-        return res.status(200).json({'rated': rated})
+        console.log(status)
+        return res.status(200).json(status)
     } catch (err) {
         console.log(err)
         return res.status(400).json(err)
     }
 }
 
-module.exports = { updateRating }
+module.exports = { updateRating, isRated }

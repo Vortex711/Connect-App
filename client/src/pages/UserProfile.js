@@ -19,8 +19,10 @@ const UserProfile = () => {
         const data = await response.json();
         setUser(data);
         const res = await fetch(`/api/ratings/${data.username}`)
-        console.log(res)
-        if (res.rated) {
+        const status = await res.json();
+        console.log(status)
+        console.log(status.rated)
+        if (status.rated) {
             setRated(true)
         } else {
             setRated(false)
@@ -36,7 +38,7 @@ const UserProfile = () => {
     fetchUser();
   }, [userId]);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <div className="loading-container"><div className="loading"><center>Loading...</center></div></div>;
   if (error) return <div>Error: {error.message}</div>;
 
   return (
@@ -44,13 +46,14 @@ const UserProfile = () => {
         <Navbar logged = {true} />
         <div className="profile-container">
             <h1>{user.username}</h1>
+            <p>Name: {user.name}</p>
             <p>Age: {user.age}</p>
             <p>Gender: {user.gender}</p>
             <p>Appearance: {user.appearance}</p>
             <p>Personality: {user.personality}</p>
             <p>Ratings: {user.ratingCount}</p>
             <div>
-                {!rated && <button>Rate</button>}
+                {!rated && <Link to={`/rate/${user._id}`}><button>Rate</button></Link>}
                 <Link to={"/home"}><button>Back</button>
                 </Link>
             </div>

@@ -6,6 +6,7 @@ import User from './pages/UserProfile';
 import Footer from './components/Footer';
 import Landing from './pages/Landing';
 import Logout from './pages/Logout';
+import RateUser from './pages/RateUser';
 
 function App() {
   return (
@@ -36,6 +37,10 @@ function App() {
             <Route 
               path='/user/:userId' 
               element={<User/>}
+            />
+            <Route 
+              path='/rate/:userId'
+              element={<RateUser/>}
             />
           </Routes>
         </div>

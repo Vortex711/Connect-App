@@ -45,7 +45,7 @@ const createToken = (id) => {
 
 const getUsers = async (req, res) => {
     console.log('GET USERS')
-    const users = await User.find({}).sort({createdAt: -1})
+    const users = await User.find({_id: { $ne : res.locals.user._id}}).sort({createdAt: -1})
     res.status(200).json(users)
 }
 
