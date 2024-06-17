@@ -65,7 +65,7 @@ const getReviews = async (req, res) => {
     const {reviewedUsername} = req.params
     console.log(reviewedUsername)
     try {
-        const reviews = await Rating.find({reviewedUsername: reviewedUsername})
+        const reviews = await Rating.find({reviewedUsername: reviewedUsername}).sort({likes: -1})
         console.log(reviews)
         return res.status(200).json(reviews)
     } catch(err) {
@@ -74,4 +74,4 @@ const getReviews = async (req, res) => {
     }
 }
 
-module.exports = { updateRating, isRated, getReviews}
+module.exports = { updateRating, isRated, getReviews }

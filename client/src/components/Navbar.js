@@ -28,7 +28,7 @@ const Navbar = ( { logged } ) => {
                 </Link>
                 <div className='auth-links'>
                     {logged && <Link to="/logout"><h2>Logout</h2></Link>}
-                    {logged && userId && <Link to={`/user/${userId}`} ><img className="profile-img" src="/images/user.png" alt="profile"/></Link>}
+                    {logged && userId && <Link to={`/user/${userId}`} ><img className="profile-img" src="/icons/user.png" alt="profile"/></Link>}
                     {!logged && <Link to="/login"><h2>Login</h2></Link>}
                     {!logged && <Link to="/signup"><h2>Sign Up</h2></Link>}
                 </div>

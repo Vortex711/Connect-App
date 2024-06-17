@@ -57,7 +57,7 @@ const LoginForm = () => {
                 value = {password}
             />
             {error.password && <span className="error">{error.password}</span>}
-            <button type="submit">Login</button>
+            <button className="buttons" type="submit">Login</button>
         </form>
     )
 }

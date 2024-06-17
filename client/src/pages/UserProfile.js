@@ -60,8 +60,8 @@ const UserProfile = () => {
             <p>Personality: {user.personality}</p>
             <p>Ratings: {user.ratingCount}</p>
             <div class="button-container">
-                {!rated && <Link to={`/rate/${user._id}`}><button>Rate</button></Link>}
-                <Link to={"/home"}><button>Back</button></Link>
+                {!rated && <Link to={`/rate/${user._id}`}><button className="buttons">Rate</button></Link>}
+                <Link to={"/home"}><button className="buttons">Back</button></Link>
             </div>
           </div>
           <div className="reviews-container">
@@ -69,7 +69,7 @@ const UserProfile = () => {
               {reviews.length !== 0 && <h2>Reviews</h2>}
               <div className="reviews">
                 {reviews && reviews.map((review) => (
-                  <Review key={review.reviewerUsername} review={review} />
+                  <Review key={review.reviewerUsername} rev={review} />
                 ))}
               </div>
           </div>

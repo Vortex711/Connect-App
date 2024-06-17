@@ -55,6 +55,33 @@ h1 {
   
 }
 
+.like-dislike-container img {
+  width: 20px;
+}
+
+.like-dislike-button:hover{
+  opacity: 0.75;
+  cursor: pointer;
+}
+
+.like-dislike-button {
+  border: none;
+  background: none;
+  margin-right: 10px;
+}
+
+.like-dislike-container {
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.small-container {
+  display: flex;
+  align-items: center;
+}
+
 .pages{
   max-width: 1400px;
   margin: 0px;
@@ -99,6 +126,14 @@ form {
   align-items: center;
 }
 
+strong {
+  margin-right: 5px;
+}
+
+.content {
+  display: block;
+}
+
 label, input{
   display: block;
   margin: 5px;
@@ -121,7 +156,7 @@ input {
   box-sizing: border-box;
 }
 
-button{
+.buttons{
   background: var(--dark);
   border: 0;
   color: #fff;
@@ -133,7 +168,7 @@ button{
   margin-top: 20px;
 }
 
-button:hover{
+.buttons:hover{
   background: var(--light);
 }
 
@@ -173,6 +208,17 @@ button:hover{
   padding: 20px;
   font-size: 11px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.review-container h3 {
+  color: var(--dark);
+}
+
+.review-details {
+  display: flex;
+  flex-direction: column;
 }
 
 .user-details-container {

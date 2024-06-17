@@ -96,7 +96,7 @@ const SignUpForm = () => {
                 />Other
             </div>
             {error.gender && <span className="error">{error.gender}</span>}
-            <button type="submit">Sign Up</button>
+            <button className="buttons" type="submit">Sign Up</button>
         </form>
     )
 }

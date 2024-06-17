@@ -40,7 +40,7 @@ const RateForm = ( { user } ) => {
         <>
             <h2>SUBMITTED</h2>
             <Link to="/home">
-                <button>OK</button>
+                <button className="buttons">OK</button>
             </Link>
         </>
     )
@@ -86,7 +86,7 @@ const RateForm = ( { user } ) => {
                     value={content}
                     onChange={(e) => {setContent(e.target.value)}}
                 />
-                <button type="submit">Submit Review</button>
+                <button className="buttons" type="submit">Submit Review</button>
             </form>
         </>
     )
