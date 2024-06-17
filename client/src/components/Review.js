@@ -26,7 +26,7 @@ const Review = ({rev}) => {
         }
 
         checkLiked()
-    }, [liked])
+    }, [liked, review])
 
     const handleLike = async () => {
         if (liked) {

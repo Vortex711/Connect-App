@@ -233,6 +233,23 @@ input {
   border-bottom-left-radius: 8px;
 }
 
+.user-details {
+  display: flex;
+  justify-content: space-evenly;
+  width: 60%;
+}
+
+.user-labels, .user-values {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.user-labels {
+  align-items: flex-end;
+}
+
 .reviews-container {
   padding: 20px;
   width: max-content;
@@ -248,9 +265,6 @@ input {
   color: var(--vlight);
 }
 
-.profile-container p {
-  font-size: larger;
-}
 
 .welcome-container , .users, .profile-container{
   border-radius: 0px 0px 8px 8px;
