@@ -50,6 +50,11 @@ h1 {
   color: var(--dark);
 }
 
+.profile-img {
+  width: 70px;
+  
+}
+
 .pages{
   max-width: 1400px;
   margin: 0px;
@@ -60,15 +65,16 @@ h1 {
   font-size: large;
 }
 
-.loading-container {
+.loading-container, .button-container {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
+  width: 100%;
 }
 
-.users{
+.users, .reviews {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 40px;
   padding: 20px;
 }
@@ -78,6 +84,19 @@ h1 {
   justify-content: center;
   align-items: center;
   min-height: 65vh;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.gender {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
 }
 
 label, input{
@@ -102,7 +121,7 @@ input {
   box-sizing: border-box;
 }
 
-form button, .profile-container button{
+button{
   background: var(--dark);
   border: 0;
   color: #fff;
@@ -112,10 +131,9 @@ form button, .profile-container button{
   cursor: pointer;
   font-size: 16px;
   margin-top: 20px;
-  margin-right: 20px;
 }
 
-form button:hover{
+button:hover{
   background: var(--light);
 }
 
@@ -137,18 +155,51 @@ form button:hover{
   text-align: center;
 }
 
-.user-container, .welcome-container, .profile-container{
+.profile-container {
+  display: flex;
+  height: 100%;
+}
+
+.user-container, .welcome-container {
   background-color: var(--vlight);
   border-radius: 8px;
   padding: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.profile-container {
+.review-container {
+  background-color: var(--vlight);
+  border-radius: 8px;
+  padding: 20px;
+  font-size: 11px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.user-details-container {
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: var(--vlight);
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  border-bottom-left-radius: 8px;
+}
+
+.reviews-container {
+  padding: 20px;
+  width: max-content;
+  flex: 1;
+  background-color: var(--primary);
+  border-bottom-right-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.reviews-container h2 {
+  color: var(--vlight);
 }
 
 .profile-container p {

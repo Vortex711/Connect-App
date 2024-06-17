@@ -7,6 +7,7 @@ import Footer from './components/Footer';
 import Landing from './pages/Landing';
 import Logout from './pages/Logout';
 import RateUser from './pages/RateUser';
+import UserProfile from './pages/UserProfile';
 
 function App() {
   return (
@@ -36,7 +37,7 @@ function App() {
             />
             <Route 
               path='/user/:userId' 
-              element={<User/>}
+              element={<UserProfile/>}
             />
             <Route 
               path='/rate/:userId'

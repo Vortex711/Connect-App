@@ -20,8 +20,8 @@ const LoginForm = () => {
             })
             const json = await response.json()
             if (response.ok) {
+                localStorage.setItem('jwt', json.token);
                 setError(null)
-                console.log('User logged in!', json)
                 setIsLoggedIn(true)
             }
 

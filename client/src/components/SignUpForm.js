@@ -74,12 +74,27 @@ const SignUpForm = () => {
                 value = {age}
             />
             {error.age && <span className="error">{error.age}</span>}
-            <label>Gender: </label>
-            <input 
-                type="text" 
-                onChange={(e) => setGender(e.target.value)}
-                value = {gender}
-            />
+            <div className="gender">
+                <label>Gender: </label>
+                <input 
+                    type="radio" 
+                    onChange={(e) => setGender(e.target.value)}
+                    name="gender"
+                    value = "Male"
+                />Male
+                <input 
+                    type="radio" 
+                    onChange={(e) => setGender(e.target.value)}
+                    name="gender"
+                    value = "Female"
+                />Female
+                <input 
+                    type="radio" 
+                    onChange={(e) => setGender(e.target.value)}
+                    name="gender"
+                    value = "Other"
+                />Other
+            </div>
             {error.gender && <span className="error">{error.gender}</span>}
             <button type="submit">Sign Up</button>
         </form>

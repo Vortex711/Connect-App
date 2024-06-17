@@ -14,7 +14,7 @@ const updateRating = async (req, res) => {
             return res.status(401).json({error: 'Not authenticated!'})
         }
         const user = await User.findById(userId)
-        const rating = await Rating.create({reviewerUsername: res.locals.user.username, reviewedUsername: user.username, appearance, personality})
+        const rating = await Rating.create({reviewerUsername: res.locals.user.username, reviewedUsername: user.username, appearance, personality, content})
         console.log(rating)
         const updateRating = await User.findByIdAndUpdate(userId, {
             $inc: {
@@ -41,6 +41,11 @@ const isRated = async (req, res) => {
     console.log('CHECKING IF RATED')
     const { username } = req.params
     console.log(username)
+    
+    if (username === res.locals.user.username) {
+        return res.status(200).json({rated: true})
+    }
+
     try {
         const rating = await Rating.findOne({reviewerUsername: res.locals.user.username, reviewedUsername: username})
         let status = {rated: false}
@@ -55,4 +60,18 @@ const isRated = async (req, res) => {
     }
 }
 
-module.exports = { updateRating, isRated }
+const getReviews = async (req, res) => {
+    console.log('GETTING REVIEW')
+    const {reviewedUsername} = req.params
+    console.log(reviewedUsername)
+    try {
+        const reviews = await Rating.find({reviewedUsername: reviewedUsername})
+        console.log(reviews)
+        return res.status(200).json(reviews)
+    } catch(err) {
+        console.log(err)
+        return res.status(400).json(err)
+    }
+}
+
+module.exports = { updateRating, isRated, getReviews}
