@@ -8,12 +8,12 @@ router.use(checkUser)
 
 router.get('/home', requireAuth, getUsers)
 
+router.get('/logout', logoutUser)
+
 router.get('/:userId', getUser)
 
 router.post('/signup', addUser)
 
 router.post('/login', loginUser)
-
-router.get('/logout', logoutUser)
 
 module.exports = router

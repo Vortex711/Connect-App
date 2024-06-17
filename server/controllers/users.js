@@ -94,7 +94,7 @@ const loginUser = async (req, res) => {
 }
 
 const logoutUser = (req, res) => {
-    console.log('Logging out')
+    console.log('LOGGING OUT')
     res.cookie('jwt', '', { maxAge: 1 / 1000 })
     res.status(200).json('Done')
 }
