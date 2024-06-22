@@ -55,9 +55,24 @@ const getUser =  async (req, res) => {
     console.log(userId)
     try {
         const user = await User.findById(userId)
+        console.log(user)
         return res.status(200).json(user)
     } catch(err) {
         console.log(err)
+        return res.status(400).json(err)
+    }
+}
+
+const findUsers = async (req, res) => {
+    const { searchString } = req.params
+    console.log('FIND USER WITH ', + searchString)
+    try {
+        const regex = new RegExp(searchString, 'i');
+
+        const users = await User.find({_id: { $ne : res.locals.user._id}, username: { $regex: regex } });
+        return res.status(200).json(users)
+    } catch (err) {
+        console.error('Error finding users by username:', err);
         return res.status(400).json(err)
     }
 }
@@ -99,4 +114,4 @@ const logoutUser = (req, res) => {
     res.status(200).json('Done')
 }
 
-module.exports = { getUsers, getUser, addUser , loginUser, logoutUser}
+module.exports = { getUsers, getUser, addUser , loginUser, logoutUser, findUsers}

@@ -39,7 +39,7 @@ const RateForm = ( { user } ) => {
     return (
         <>
             <h2>SUBMITTED</h2>
-            <Link to="/home">
+            <Link to={`/user/${user._id}`}>
                 <button className="buttons">OK</button>
             </Link>
         </>

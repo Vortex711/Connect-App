@@ -6,10 +6,18 @@ import Navbar from "../components/Navbar"
 const Home = () => {
     const [users, setUsers] = useState(null)
     const [error, setError] = useState(null)
+    const [searchInput, setSearchInput] = useState('')
+    const [searchString, setSearchString] = useState('')
 
     useEffect(() => {
         const fetchUsers = async () => {
-            const response = await fetch('/api/users/home')
+            let response
+            if (searchString) {
+                response = await fetch(`/api/users/username/${searchString}`)
+                setSearchInput('')
+            } else {
+                response = await fetch('/api/users/home')
+            }
             const json = await response.json()
             console.log(json)
             if (response.ok) {
@@ -24,7 +32,7 @@ const Home = () => {
         }
 
         fetchUsers()
-    }, [])
+    }, [searchString])
 
     if (error) {
         return <Navigate to='/' />
@@ -33,6 +41,17 @@ const Home = () => {
     return (
         <div className="home">
             <Navbar logged= {true} />
+            <div className="search-container">
+                <div className="search-box">
+                    <input
+                    className="search-bar" 
+                    type="text" 
+                    value={searchInput} placeholder="Username" 
+                    onChange={(e) => setSearchInput(e.target.value)}
+                    />
+                    <button className="search-button" onClick={() => setSearchString(searchInput)}>Search</button>
+                </div>
+            </div>
             <div className="users">
                 {users && users.map((user) => (
                     <User key={user._id} user={user}></User>

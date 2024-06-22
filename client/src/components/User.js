@@ -4,7 +4,7 @@ const User = ({user}) => {
     return (
         <div className="user-container">
             <Link className="user-link" to={`/user/${user._id}`}>
-                <h3>{user.username.toUpperCase()}</h3>
+                <h3>{`${user.username.toUpperCase()}  (${user.ratingCount})`}</h3>
                 <p><strong>Appearance: {user.appearance}</strong></p>
                 <p><strong>Personality: {user.personality}</strong></p>
             </Link>

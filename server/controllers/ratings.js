@@ -61,7 +61,7 @@ const isRated = async (req, res) => {
 }
 
 const getReviews = async (req, res) => {
-    console.log('GETTING REVIEW')
+    console.log('GETTING REVIEWS')
     const {reviewedUsername} = req.params
     console.log(reviewedUsername)
     try {
@@ -74,4 +74,32 @@ const getReviews = async (req, res) => {
     }
 }
 
-module.exports = { updateRating, isRated, getReviews }
+const getRatings = async (req, res) => {
+    console.log('GETTING RATINGS')
+    const {reviewerUsername} = req.params
+    console.log(reviewerUsername)
+    try {
+        const ratings = await Rating.find({reviewerUsername}).sort({likes: -1})
+        console.log(ratings)
+        return res.status(200).json(ratings)
+    } catch(err) {
+        console.log(err)
+        return res.status(400).json(err)
+    }
+}
+
+const deleteReview = async (req, res) => {
+    console.log('DELETING REVIEW')
+    const {reviewId} = req.body
+    console.log(reviewId)
+    try {
+        const review = await Rating.findOneAndDelete({_id: reviewId})
+        console.log(review)
+        return res.status(200).json(review)
+    } catch(err) {
+        console.log(err)
+        return res.status(400).json(err)
+    }
+}
+
+module.exports = { updateRating, isRated, getReviews, getRatings, deleteReview }

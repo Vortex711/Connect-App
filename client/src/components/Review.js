@@ -1,14 +1,20 @@
 import { useEffect, useState } from "react"
 
-const Review = ({rev}) => {
+const Review = ({rev, rating, username, refresh}) => {
     const [review, setReview] = useState(rev)
     const [liked, setLiked] = useState(false)
     const [likeOpacity, setLikeOpacity] = useState(1)
     const [disliked, setDisliked] = useState(false)
     const [dislikeOpacity, setDislikeOpacity] = useState(1)
+    const [del, setDel] = useState(false)
+    const [deleted, setDeleted] = useState(false)
 
     useEffect(() => {
         const check = async () => {
+            if (deleted) {
+                setDeleted(false)
+                refresh()
+            }
             try {
                 const response = await fetch(`/api/likes/check/${review._id}`)
                 const status = await response.json()
@@ -30,6 +36,8 @@ const Review = ({rev}) => {
                     setDisliked(false)
                     setDislikeOpacity(1)
                 }
+                
+                
             } catch(err) {
                 console.log(err)
                 setLiked(false)
@@ -40,7 +48,7 @@ const Review = ({rev}) => {
         }
 
         check()
-    }, [liked, disliked, review])
+    }, [liked, disliked, review, del, deleted, refresh])
 
     const handleLike = async () => {
         if (liked) {
@@ -152,14 +160,47 @@ const Review = ({rev}) => {
                 setReview(rev)
             }
         }
-
-        
     }
 
+    const handleDelete = async () => {
+        try {
+            const response = await fetch(`/api/ratings/delete`, {
+                method: 'DELETE',
+                body: JSON.stringify({reviewId: review._id}),
+                headers: {'Content-Type': 'application/json'}
+            })
+            const deleted = await response.json()
+            console.log(deleted)
+            setDeleted(true)
+            setDel(false)
+        } catch (err) {
+            setDeleted(false)
+            console.log(err)
+            setDel(false)
+        }
+    }
+
+    if (deleted) return <></>
+
+    if (del) return (
+        <>
+            <h2>Are you sure you want to delete this review?</h2>
+            <div className="button-container">
+                <button className="buttons" onClick={handleDelete}>Yes</button>
+                <button className="buttons" onClick={() => setDel(false)}>No</button>
+            </div>
+            
+        </>
+    )
     return (
         <div className="review-container">
             <div>
-                <h3>{review.reviewerUsername.toUpperCase()}</h3>
+                <div class="review-top">
+                    {!rating && <h3>{review.reviewerUsername.toUpperCase()}</h3>}
+                    {rating && <h3>{review.reviewedUsername.toUpperCase()}</h3>}
+                    {username === review.reviewerUsername && <button class="like-dislike-button" onClick={() => {setDel(true) 
+                        console.log('pressed')}}><img src="/icons/bin.png" alt="delete-img"></img></button> }
+                </div>
                 <p><strong>Appearance: </strong>{review.appearance}</p>
                 <p><strong>Personality: </strong>{review.personality}</p>
                 {review.content && <p><strong className="content">Content: </strong>{review.content}</p>}
