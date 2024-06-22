@@ -49,10 +49,13 @@ const Home = () => {
                     value={searchInput} placeholder="Username" 
                     onChange={(e) => setSearchInput(e.target.value)}
                     />
-                    <button className="search-button" onClick={() => setSearchString(searchInput)}>Search</button>
+                    <button className="search-button" onClick={() => setSearchString(searchInput)}>
+                        <img src="/icons/search.png" alt="Search" className="search-icon"/>
+                    </button>
                 </div>
             </div>
             <div className="users">
+                {users.length === 0 && <h2>No users found!</h2>}
                 {users && users.map((user) => (
                     <User key={user._id} user={user}></User>
                 ))}
