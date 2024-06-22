@@ -65,11 +65,10 @@ const getUser =  async (req, res) => {
 
 const findUsers = async (req, res) => {
     const { searchString } = req.params
-    console.log('FIND USER WITH ', + searchString)
+    console.log(`FIND USERS WITH ${searchString}`)
     try {
         const regex = new RegExp(searchString, 'i');
-
-        const users = await User.find({_id: { $ne : res.locals.user._id}, username: { $regex: regex } });
+        const users = await User.find({_id: { $ne : res.locals.user._id}, username: { $regex: regex } }).sort({createdAt: -1});
         return res.status(200).json(users)
     } catch (err) {
         console.error('Error finding users by username:', err);
