@@ -171,6 +171,13 @@ const Review = ({rev, rating, username, refresh}) => {
             })
             const deleted = await response.json()
             console.log(deleted)
+            const updateResponse = await fetch('/api/ratings/updateUser', {
+                method: 'PATCH',
+                body: JSON.stringify({review: deleted, remove: true}),
+                headers: {'Content-Type': 'application/json'}
+            })
+            const json = updateResponse.json()
+            console.log(json)
             setDeleted(true)
             setDel(false)
         } catch (err) {
@@ -183,14 +190,13 @@ const Review = ({rev, rating, username, refresh}) => {
     if (deleted) return <></>
 
     if (del) return (
-        <>
-            <h2>Are you sure you want to delete this review?</h2>
+        <div className="review-container">
+            <h3>Are you sure you want to delete this review?</h3>
             <div className="button-container">
                 <button className="buttons" onClick={handleDelete}>Yes</button>
                 <button className="buttons" onClick={() => setDel(false)}>No</button>
             </div>
-            
-        </>
+        </div>
     )
     return (
         <div className="review-container">

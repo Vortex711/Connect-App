@@ -139,6 +139,10 @@ h1 {
   font-family: "Poppins";
 }
 
+.search-bar:focus {
+  outline: none;
+}
+
 .search-button {
   background: var(--vlight);
   border: 1px solid black;
@@ -272,6 +276,11 @@ input {
 
 .review-container h3 {
   color: var(--dark);
+}
+
+.review-container .buttons {
+  width: 30%;
+  padding: 10px;
 }
 
 .review-top {

@@ -55,7 +55,7 @@ const Home = () => {
                 </div>
             </div>
             <div className="users">
-                {users.length === 0 && <h2>No users found!</h2>}
+                {(!users || users.length === 0) && <h2>No users found!</h2>}
                 {users && users.map((user) => (
                     <User key={user._id} user={user}></User>
                 ))}

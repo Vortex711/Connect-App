@@ -97,7 +97,7 @@ const UserProfile = () => {
               {ratings.length !== 0 && <h2>Given Reviews</h2>}
               <div className="reviews">
                 {ratings && ratings.map((rating) => (
-                  <Review key={rating.reviewedUsername} rev={rating} rating={true} username={currUser.username}/>
+                  <Review key={rating.reviewedUsername} rev={rating} rating={true} username={currUser.username} refresh={refresh}/>
                 ))}
               </div>
             </div>

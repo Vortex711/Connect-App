@@ -10,18 +10,25 @@ const RateForm = ( { user } ) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const body = {appearance, personality, content}
+        const body = {userId: user._id, appearance, personality, content}
         console.log(body)
         try {
-            const response = await fetch(`/api/ratings/rate/${user._id}`,
+            const response = await fetch(`/api/ratings/rate`,
                 {
-                    method: 'PATCH',
+                    method: 'POST',
                     body: JSON.stringify(body),
                     headers: {'Content-Type': 'application/json'}
                 }
             )
             
-            const json = await response.json()
+            const review = await response.json()
+            console.log(review)
+            const updateResponse = await fetch('/api/ratings/updateUser', {
+                method: 'PATCH',
+                body: JSON.stringify({review, remove: false}),
+                headers: {'Content-Type': 'application/json'}
+            })
+            const json = updateResponse.json()
             console.log(json)
             if (response.ok) {
                 setSubmitted(true)

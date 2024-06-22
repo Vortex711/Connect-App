@@ -2,12 +2,11 @@ const Rating = require('../models/ratings')
 const User = require('../models/users')
 const mongoose = require('mongoose')
 
-const updateRating = async (req, res) => {
-    console.log("Updating rating")
-    const { userId } = req.params
+const addRating = async (req, res) => {
+    console.log('ADDING RATING')
     const appearance = parseFloat(req.body.appearance)
     const personality = parseFloat(req.body.personality)
-    const content = req.body.content
+    const { content, userId } = req.body
     console.log(userId, appearance, personality, content, res.locals.user)
     try {
         if (!res.locals.user) {
@@ -16,21 +15,52 @@ const updateRating = async (req, res) => {
         const user = await User.findById(userId)
         const rating = await Rating.create({reviewerUsername: res.locals.user.username, reviewedUsername: user.username, appearance, personality, content})
         console.log(rating)
-        const updateRating = await User.findByIdAndUpdate(userId, {
-            $inc: {
-                appearanceSum: appearance, 
-                personalitySum: personality, 
-                ratingCount: 1 
-            }, 
-            $set: {
-                appearance: (user.appearanceSum + appearance) / (user.ratingCount + 1),
-                personality: (user.personalitySum + personality) / (user.ratingCount + 1)
-            },
-        }, { new: true });
+        res.status(200).json(rating)
+    } catch (err) {
+        console.log(err)
+        res.status(400).json(err)
+    }
+}
+
+const updateRating = async (req, res) => {
+    console.log("Updating rating")
+    const { review, remove } = req.body
+    console.log(review, remove)
+    try {
+        if (!res.locals.user) {
+            return res.status(401).json({error: 'Not authenticated!'})
+        }
+        const user = await User.findOne({username: review.reviewedUsername})
+        let updateRating
+        if (remove) {
+            updateRating = await User.findOneAndUpdate({username: review.reviewedUsername} , {
+                $inc: {
+                    appearanceSum: -review.appearance, 
+                    personalitySum: -review.personality, 
+                    ratingCount: -1 
+                }, 
+                $set: {
+                    appearance: (user.appearanceSum - review.appearance) / (user.ratingCount - 1),
+                    personality: (user.personalitySum - review.personality) / (user.ratingCount - 1)
+                },
+            }, { new: true });
+        } else{
+            updateRating = await User.findOneAndUpdate({username: review.reviewedUsername} , {
+                $inc: {
+                    appearanceSum: review.appearance, 
+                    personalitySum: review.personality, 
+                    ratingCount: 1 
+                }, 
+                $set: {
+                    appearance: (user.appearanceSum + review.appearance) / (user.ratingCount + 1),
+                    personality: (user.personalitySum + review.personality) / (user.ratingCount + 1)
+                },
+            }, { new: true });
+        }
         if (!updateRating) {
             res.status(400).json({'error': 'Not updated!'})
         }
-        res.status(200).json(rating)
+        res.status(200).json(review)
     } catch (err) {
         console.log(err)
         res.status(400).json(err)
@@ -102,4 +132,4 @@ const deleteReview = async (req, res) => {
     }
 }
 
-module.exports = { updateRating, isRated, getReviews, getRatings, deleteReview }
+module.exports = { addRating, updateRating, isRated, getReviews, getRatings, deleteReview }
