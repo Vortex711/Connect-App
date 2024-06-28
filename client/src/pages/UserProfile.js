@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import ReactPaginate from 'react-paginate';
+
 import Navbar from '../components/Navbar';
 import Review from '../components/Review';
 import getUserFromToken from '../util/auth';
@@ -13,6 +15,10 @@ const UserProfile = () => {
   const [error, setError] = useState(null);
   const [rated, setRated] = useState(false);
   const [currUser, setCurrUser] = useState(null)
+  const [ratingsPageCount, setRatingsPageCount] = useState(1)
+  const [ratingsCurrentPage, setRatingsCurrentPage] = useState(0)
+  const [reviewsPageCount, setReviewsPageCount] = useState(1)
+  const [reviewsCurrentPage, setReviewsCurrentPage] = useState(0)
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -25,9 +31,15 @@ const UserProfile = () => {
         setUser(data);
         const res = await fetch(`/api/ratings/rating/${data.username}`)
         const status = await res.json();
-        const reviewsResponse = await fetch(`/api/ratings/reviews/${data.username}`)
+        const reviewsCountResponse = await fetch(`/api/ratings/reviews/count/${data.username}`)
+        const reviewsCount = await reviewsCountResponse.json()
+        setReviewsPageCount(reviewsCount)
+        const reviewsResponse = await fetch(`/api/ratings/reviews/${data.username}?p=${reviewsCurrentPage}`)
         const reviewDetails = await reviewsResponse.json()
-        const ratingsResponse = await fetch(`/api/ratings/${data.username}`)
+        const ratingsCountResponse = await fetch(`/api/ratings/count/${data.username}`)
+        const ratingsCount = await ratingsCountResponse.json()
+        setRatingsPageCount(ratingsCount)
+        const ratingsResponse = await fetch(`/api/ratings/${data.username}?p=${ratingsCurrentPage}`)
         const ratingDetails = await ratingsResponse.json()
         const getUser = getUserFromToken()
         const userResponse = await fetch(`/api/users/${getUser.id}`)
@@ -51,11 +63,23 @@ const UserProfile = () => {
         setRatings(null)
         setError(err);
         setLoading(false);
+        setReviewsPageCount(1)
+        setReviewsCurrentPage(0)
+        setRatingsPageCount(1)
+        setRatingsCurrentPage(0)
       }
     };
 
     fetchUser();
-  }, [userId]);
+  }, [userId, ratingsCurrentPage, reviewsCurrentPage]);
+
+  const handleRatingsPageClick = (e) => {
+    setRatingsCurrentPage(e.selected)
+  }
+
+  const handleReviewsPageClick = (e) => {
+    setReviewsCurrentPage(e.selected)
+  }
 
   const refresh = () => {
     window.location.reload()
@@ -95,11 +119,23 @@ const UserProfile = () => {
             <div className="ratings-container">
               {ratings.length === 0 && <h2>{"No ratings :("}</h2>}
               {ratings.length !== 0 && <h2>Given Reviews</h2>}
-              <div className="reviews">
+              <div className="ratings">
                 {ratings && ratings.map((rating) => (
                   <Review key={rating.reviewedUsername} rev={rating} rating={true} username={currUser.username} refresh={refresh}/>
                 ))}
               </div>
+              <ReactPaginate
+                className="paginate-container"
+                breakLabel="..."
+                nextLabel="next >"
+                onPageChange={handleRatingsPageClick}
+                pageRangeDisplayed={3}
+                marginPagesDisplayed={1}
+                pageCount={ratingsPageCount}
+                previousLabel="< previous"
+                renderOnZeroPageCount={null}
+                activeClassName="active"
+              />
             </div>
           </div>
           <div className="reviews-container">
@@ -110,6 +146,18 @@ const UserProfile = () => {
                 <Review key={review.reviewerUsername} rev={review} rating={false} username={currUser.username} refresh={refresh}/>
               ))}
             </div>
+            <ReactPaginate
+                className="paginate-container"
+                breakLabel="..."
+                nextLabel="next >"
+                onPageChange={handleReviewsPageClick}
+                pageRangeDisplayed={3}
+                marginPagesDisplayed={1}
+                pageCount={reviewsPageCount}
+                previousLabel="< previous"
+                renderOnZeroPageCount={null}
+                activeClassName="active"
+              />
           </div>
         </div>
     </div>

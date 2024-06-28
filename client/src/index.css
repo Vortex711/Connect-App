@@ -6,6 +6,7 @@
   --primary: #4f772d;
   --light: #90a955;
   --vlight: #ecf39e;
+  --disabled: #50772d9b;
 }
 
 body {
@@ -99,11 +100,16 @@ h1 {
   width: 100%;
 }
 
-.users, .reviews {
+.users, .reviews, .ratings{
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 40px;
   padding: 20px;
+}
+
+.ratings {
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  width: 80%;
 }
 
 .reviews {
@@ -309,7 +315,7 @@ input {
 .user-details {
   display: flex;
   justify-content: space-evenly;
-  width: 40%;
+  width: 60%;
 }
 
 .user-labels, .user-values {
@@ -382,3 +388,63 @@ footer {
   min-height: 100vh;
 }
 
+.paginate-container {
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  list-style-type: none;
+  padding: 0 5rem;
+  gap: 10px;
+}
+
+li a {
+  border-radius: 7px;
+  padding: 0.1rem 1rem;
+  border: var(--dark) 1px solid;
+  cursor: pointer;
+}
+
+li a:hover {
+  background-color: var(--vlight);
+}
+
+li.previous a, li.next a, li.break a {
+  border-color: transparent;
+}
+
+li.active a {
+  background-color: var(--dark);
+  border-color: transparent;
+  color: white;
+  min-width: 32px;
+}
+
+li.disabled a {
+  color: var(--disabled);
+}
+
+li.disable, li.disabled a {
+
+  cursor: default;
+}
+
+.ratings-container li.disabled a {
+  color: var(--light);
+}
+
+.reviews-container li.active a {
+  background-color: var(--primary);
+}
+
+.reviews-container li a{
+  border: none;
+}
+
+.reviews-container li a:hover {
+  background-color: var(--light);
+}
+
+.reviewgs-container li.disabled a {
+  color: var(--disabled);
+}

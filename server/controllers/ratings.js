@@ -2,6 +2,9 @@ const Rating = require('../models/ratings')
 const User = require('../models/users')
 const mongoose = require('mongoose')
 
+const ratingsPerPage = 2
+const reviewsPerPage = 5
+
 const addRating = async (req, res) => {
     console.log('ADDING RATING')
     const appearance = parseFloat(req.body.appearance)
@@ -93,11 +96,26 @@ const isRated = async (req, res) => {
 const getReviews = async (req, res) => {
     console.log('GETTING REVIEWS')
     const {reviewedUsername} = req.params
-    console.log(reviewedUsername)
+    const p = req.query.p || 0
+    console.log(reviewedUsername, p)
     try {
-        const reviews = await Rating.find({reviewedUsername: reviewedUsername}).sort({likes: -1})
+        const reviews = await Rating.find({reviewedUsername: reviewedUsername}).sort({likes: -1, dislikes: 1, createdAt: -1}).skip(p * reviewsPerPage).limit(reviewsPerPage)
         console.log(reviews)
         return res.status(200).json(reviews)
+    } catch(err) {
+        console.log(err)
+        return res.status(400).json(err)
+    }
+}
+
+const getReviewsCount = async (req, res) => {
+    console.log('GETTING REVIEWS COUNT')
+    const {reviewedUsername} = req.params
+    try {
+        const reviewsCount = await Rating.find({reviewedUsername}).sort({likes: -1, dislikes: 1, createdAt: -1}).countDocuments()
+        console.log(reviewsCount)
+        const pageCount = Math.ceil(reviewsCount / reviewsPerPage)
+        return res.status(200).json(pageCount)
     } catch(err) {
         console.log(err)
         return res.status(400).json(err)
@@ -107,11 +125,26 @@ const getReviews = async (req, res) => {
 const getRatings = async (req, res) => {
     console.log('GETTING RATINGS')
     const {reviewerUsername} = req.params
-    console.log(reviewerUsername)
+    const p = req.query.p || 0
+    console.log(reviewerUsername, p)
     try {
-        const ratings = await Rating.find({reviewerUsername}).sort({likes: -1})
+        const ratings = await Rating.find({reviewerUsername}).sort({likes: -1, dislikes: 1, createdAt: -1}).skip(p * ratingsPerPage).limit(ratingsPerPage)
         console.log(ratings)
         return res.status(200).json(ratings)
+    } catch(err) {
+        console.log(err)
+        return res.status(400).json(err)
+    }
+}
+
+const getRatingsCount = async (req, res) => {
+    console.log('GETTING RATINGS COUNT')
+    const {reviewerUsername} = req.params
+    try {
+        const ratingsCount = await Rating.find({reviewerUsername}).sort({likes: -1, dislikes: 1, createdAt: -1}).countDocuments()
+        console.log(ratingsCount)
+        const pageCount = Math.ceil(ratingsCount / ratingsPerPage)
+        return res.status(200).json(pageCount)
     } catch(err) {
         console.log(err)
         return res.status(400).json(err)
@@ -132,4 +165,4 @@ const deleteReview = async (req, res) => {
     }
 }
 
-module.exports = { addRating, updateRating, isRated, getReviews, getRatings, deleteReview }
+module.exports = { addRating, updateRating, isRated, getReviews, getRatings, deleteReview, getRatingsCount, getReviewsCount }
