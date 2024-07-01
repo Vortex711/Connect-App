@@ -4,6 +4,7 @@ import getUserFromToken from '../util/auth'
 
 const Navbar = ( { logged } ) => {
     const [userId, setUserId] = useState(null)
+    const [image, setImage] = useState('')
 
     useEffect(() => {
         const fetchUser = async () => {
@@ -11,14 +12,22 @@ const Navbar = ( { logged } ) => {
             console.log(userDetails)
             if (userDetails) {
                 setUserId(userDetails.id)
+                try{
+                    const userResponse = await fetch(`/api/users/${userId}`)
+                    const user = await userResponse.json()
+                    setImage(user.image)
+                    console.log("image set" + image)
+                } catch(err) {
+                    setImage(null)
+                }
+                
             } else {
                 setUserId(null)
             }
-            
         }
         
         fetchUser()
-    }, [])
+    }, [userId])
 
     return (
         <div class="header">
@@ -28,7 +37,7 @@ const Navbar = ( { logged } ) => {
                 </Link>
                 <div className='auth-links'>
                     {logged && <Link to="/logout"><h2>Logout</h2></Link>}
-                    {logged && userId && <Link to={`/user/${userId}`} ><img className="profile-img" src="/icons/user.png" alt="profile"/></Link>}
+                    {logged && userId && <Link to={`/user/${userId}`} ><img className="profile-img" src={`data:image/jpeg;base64,${image}`} alt="profile-img"/></Link>}
                     {!logged && <Link to="/login"><h2>Login</h2></Link>}
                     {!logged && <Link to="/signup"><h2>Sign Up</h2></Link>}
                 </div>

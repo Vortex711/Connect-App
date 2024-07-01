@@ -1,6 +1,10 @@
 const express = require('express')
 const { getUsers, addUser, loginUser, logoutUser, getUser, findUsers, getCount } = require('../controllers/users')
 const { requireAuth, checkUser } = require('../middleware/authMiddleware')
+const multer = require('multer')
+
+const storage = multer.memoryStorage()
+const upload = multer({storage: storage})
 
 const router = express.Router()
 
@@ -16,7 +20,7 @@ router.get('/:userId', getUser)
 
 router.get('/username/:searchString', requireAuth, findUsers)
 
-router.post('/signup', addUser)
+router.post('/signup', upload.single('image'), addUser)
 
 router.post('/login', loginUser)
 

@@ -2,7 +2,7 @@ const User = require('../models/users')
 const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
 
-const usersPerPage = 15
+const usersPerPage = 8
 
 const handleSignUpErrors = (err) => {
     console.log(err.message, err.code)
@@ -98,8 +98,15 @@ const getCount = async (req, res) => {
 const addUser = async (req, res) => {
     console.log('POST USER')
     const {username, password, name, age, gender} = req.body
+    console.log(username)
     try{
-        const user = await User.create({username, password, name, age, gender })
+        let user
+        if (!req.file) {
+            user = await User.create({username, password, name, age, gender })
+        } else {
+            const image = req.file.buffer.toString('base64')
+            user = await User.create({username, password, name, image, age, gender})
+        }
         res.status(201).json({user: user._id})
     } catch(err){
         const errors = handleSignUpErrors(err)

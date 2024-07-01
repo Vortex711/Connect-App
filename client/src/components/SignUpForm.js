@@ -5,6 +5,7 @@ const SignUpForm = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [name, setName] = useState('')
+    const [file, setFile] = useState(null)
     const [age, setAge] = useState('')
     const [gender, setGender] = useState('')
     const [isSignedIn, setIsSignedIn] = useState(false)
@@ -16,12 +17,17 @@ const SignUpForm = () => {
         if (!(isNaN(parseInt(age)))) {
             setAge(parseInt(age))
         }
-        const user = {username, password, name, age, gender}
+        const formData = new FormData()
+        formData.append('username', username)
+        formData.append('password', password)
+        formData.append('name', name)
+        formData.append('image', file)
+        formData.append('age', age)
+        formData.append('gender', gender)
 
         const response = await fetch('/api/users/signup', {
             method: 'POST',
-            body: JSON.stringify(user),
-            headers: {'Content-Type': 'application/json'}
+            body: formData
         })
 
         const json = await response.json()
@@ -43,7 +49,7 @@ const SignUpForm = () => {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} encType="multipart/form-data">
             <h2 className="form-heading">Sign Up</h2>
             
             <label>Username: </label>
@@ -72,6 +78,12 @@ const SignUpForm = () => {
                 type="text" 
                 onChange={(e) => setAge(e.target.value)}
                 value = {age}
+            />
+            <label>Profile Picture: </label>
+            <input
+                type="file"
+                onChange={(e) => setFile(e.target.files[0])}
+                accept="image/*"
             />
             {error.age && <span className="error">{error.age}</span>}
             <div className="gender">

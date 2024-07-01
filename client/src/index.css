@@ -53,7 +53,8 @@ h1 {
 
 .profile-img {
   width: 70px;
-  
+  height: 70px;
+  border-radius: 100%;
 }
 
 .review-container img{
@@ -102,7 +103,7 @@ h1 {
 
 .users, .reviews, .ratings{
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 40px;
   padding: 20px;
 }
@@ -114,6 +115,7 @@ h1 {
 
 .reviews {
   width: 90%;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 }
 
 .users {
@@ -270,6 +272,18 @@ input {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+.user-container img {
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+}
+
+.user-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .review-container {
   background-color: var(--vlight);
   border-radius: 8px;
@@ -300,6 +314,13 @@ input {
   flex-direction: column;
 }
 
+.user-details-img-container {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}
+
 .user-details-container {
   padding: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -312,10 +333,24 @@ input {
   align-items: center;
 }
 
+.user-img-container {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--light);
+}
+
+.user-img-container img {
+  width: 100%;
+}
+
 .user-details {
   display: flex;
   justify-content: space-evenly;
-  width: 60%;
+  width: 100%;
 }
 
 .user-labels, .user-values {
@@ -329,7 +364,6 @@ input {
 }
 
 .ratings-container{
-  padding: 20px;
   width: max-content;
   flex: 1;
   background-color: var(--primary);

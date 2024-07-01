@@ -3,6 +3,7 @@ require('dotenv').config()
 const express = require('express')
 const mongoose = require('mongoose')
 const cookieParser = require('cookie-parser')
+const bodyParser = require('body-parser')
 
 const userRoutes = require('./routes/userRoutes')
 const ratingRoutes = require('./routes/ratingRoutes')
@@ -12,7 +13,8 @@ const { checkUser } = require('./middleware/authMiddleware')
 
 const app = express()
 
-app.use(express.json())
+app.use(express.urlencoded({extended: true}))
+app.use(bodyParser.json())
 app.use(cookieParser())
 app.use('/api/users', userRoutes)
 app.use('/api/ratings', ratingRoutes)

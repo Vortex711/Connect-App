@@ -93,27 +93,32 @@ const UserProfile = () => {
         <Navbar logged = {true} />
         <div className="profile-container">
           <div className="initial-profile-container">
-            <div className="user-details-container">
-              <h1>{`${user.username} (${user.ratingCount})`}</h1>
-              <div className="user-details">
-                <div className="user-labels">
-                  <p><strong>Name:</strong> </p>
-                  <p><strong>Age:</strong></p> 
-                  <p><strong>Gender:</strong></p> 
-                  <p><strong>Appearance:</strong></p> 
-                  <p><strong>Personality:</strong></p>   
+            <div className="user-details-img-container">
+              <div className="user-details-container">
+                <h1>{`${user.username} (${user.ratingCount})`}</h1>
+                <div className="user-details">
+                  <div className="user-labels">
+                    <p><strong>Name:</strong> </p>
+                    <p><strong>Age:</strong></p> 
+                    <p><strong>Gender:</strong></p> 
+                    <p><strong>Appearance:</strong></p> 
+                    <p><strong>Personality:</strong></p>   
+                  </div>
+                  <div className="user-values">
+                    <p>{user.name}</p>
+                    <p>{user.age}</p>
+                    <p>{user.gender}</p>
+                    <p>{user.appearance}</p>
+                    <p>{user.personality}</p>
+                  </div>
                 </div>
-                <div className="user-values">
-                  <p>{user.name}</p>
-                  <p>{user.age}</p>
-                  <p>{user.gender}</p>
-                  <p>{user.appearance}</p>
-                  <p>{user.personality}</p>
+                <div class="button-container">
+                    {!rated && <Link to={`/rate/${user._id}`}><button className="buttons">Rate</button></Link>}
+                    <Link to={"/home"}><button className="buttons">Back</button></Link>
                 </div>
               </div>
-              <div class="button-container">
-                  {!rated && <Link to={`/rate/${user._id}`}><button className="buttons">Rate</button></Link>}
-                  <Link to={"/home"}><button className="buttons">Back</button></Link>
+              <div className="user-img-container">
+                <img src={`data:image/jpeg;base64,${user.image}`} alt="user-img"/>
               </div>
             </div>
             <div className="ratings-container">
