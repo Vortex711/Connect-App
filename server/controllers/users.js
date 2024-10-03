@@ -1,6 +1,7 @@
 const User = require('../models/users')
 const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
+const sharp = require('sharp')
 
 const usersPerPage = 8
 
@@ -104,7 +105,15 @@ const addUser = async (req, res) => {
         if (!req.file) {
             user = await User.create({username, password, name, age, gender })
         } else {
-            const image = req.file.buffer.toString('base64')
+            // Compress and resize the image using sharp before converting to base64
+            const compressedImageBuffer = await sharp(req.file.buffer)
+                .rotate()  // Automatically corrects orientation based on EXIF data
+                .resize({ width: 800 })  // Resize to a width of 800px (maintains aspect ratio)
+                .jpeg({ quality: 70 })   // Convert to JPEG with 70% quality to compress
+                .toBuffer();             // Convert the image to buffer
+
+            // Convert the compressed image buffer to base64
+            const image = compressedImageBuffer.toString('base64');
             user = await User.create({username, password, name, image, age, gender})
         }
         res.status(201).json({user: user._id})

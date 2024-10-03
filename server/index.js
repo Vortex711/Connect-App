@@ -2,6 +2,7 @@ require('dotenv').config()
 
 const express = require('express')
 const mongoose = require('mongoose')
+const cors = require('cors')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 
@@ -13,6 +14,13 @@ const { checkUser } = require('./middleware/authMiddleware')
 
 const app = express()
 
+app.use(cors(
+    {
+        origin: ["https://deploy-mern-lwgq.vercel.app"],
+        methods: ["POST", "GET"],
+        credentials: true
+    }
+))
 app.use(express.urlencoded({extended: true}))
 app.use(bodyParser.json())
 app.use(cookieParser())
