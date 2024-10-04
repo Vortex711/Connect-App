@@ -1,5 +1,5 @@
 {
-  "proxy": "http://localhost:4000",
+  "proxy": "https://connect-app-puce.vercel.app/",
   "name": "connect-app",
   "version": "0.1.0",
   "private": true,
