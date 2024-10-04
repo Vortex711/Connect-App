@@ -1,13 +1,12 @@
 const jwt = require('jsonwebtoken')
 const User = require('../models/users')
 
-const secret = process.env.SECRET
 const requireAuth = (req, res, next) => {
     console.log('REQUIRE AUTH');
     const token = req.cookies.jwt;
 
     if (token) {
-        jwt.verify(token, secret, (err, decodedToken) => {
+        jwt.verify(token, process.env.SECRET, (err, decodedToken) => {
             if (err) {
                 console.log('JWT verification error:', err.message);
                 res.status(401).json({ error: 'Unverified' });
@@ -27,7 +26,7 @@ const checkUser = (req, res, next) => {
     console.log('CHECKING user...');
 
     if (token) {
-        jwt.verify(token, secret, async (err, decodedToken) => {
+        jwt.verify(token, process.env.SECRET, async (err, decodedToken) => {
             if (err) {
                 console.log('JWT verification error:', err.message);
                 res.locals.user = null;
