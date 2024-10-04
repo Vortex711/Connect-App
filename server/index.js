@@ -17,7 +17,7 @@ const app = express()
 app.use(cors(
     {
         origin: ["https://connect-app-frontend-eight.vercel.app"],
-        methods: ["POST", "GET"],
+        methods: ["POST", "GET", "PATCH", "DELETE"],
         credentials: true
     }
 ))
@@ -46,4 +46,5 @@ mongoose.connect(MONGO_URI)
     .catch((err) => {
         console.log(err)
     })
-        
+
+module.exports = app;
