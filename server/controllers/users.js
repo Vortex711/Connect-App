@@ -142,6 +142,11 @@ const loginUser = async (req, res) => {
     }
 }
 
+const editUser = (req, res) => {
+    console.log('EDITING USER')
+    
+}
+
 const logoutUser = (req, res) => {
     console.log('LOGGING OUT')
     res.cookie('jwt', '', { maxAge: 1 / 1000 })
