@@ -16,7 +16,8 @@ const LoginForm = () => {
             const response = await fetch(`${process.env.REACT_APP_SERVER_URI}/api/users/login`, {
                 method: 'POST',
                 body: JSON.stringify(user),
-                headers: {'Content-Type': 'application/json'}
+                headers: {'Content-Type': 'application/json'},
+                credentials: 'include'
             })
             const json = await response.json()
             if (response.ok) {
