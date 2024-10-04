@@ -16,7 +16,7 @@ const app = express()
 
 app.use(cors(
     {
-        origin: ["https://connect-app-puce.vercel.app/"],
+        origin: ["https://connect-app-frontend-eight.vercel.app/"],
         methods: ["POST", "GET"],
         credentials: true
     }
@@ -33,7 +33,7 @@ app.get('/', (req, res) => {
     res.json("Hello");
 })
 
-const PORT = process.env.PORT || 4000
+const PORT = 4000
 const MONGO_URI = process.env.MONGO_URI
 
 mongoose.connect(MONGO_URI)
