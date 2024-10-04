@@ -8,7 +8,7 @@ const upload = multer({storage: storage})
 
 const router = express.Router()
 
-router.use(checkUser)
+// router.use(checkUser)
 
 router.get('/home', requireAuth, getUsers)
 
