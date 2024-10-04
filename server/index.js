@@ -15,9 +15,9 @@ const { checkUser } = require('./middleware/authMiddleware')
 const app = express()
 
 app.use(cors(
-    {
+    {   
         origin: ["https://connect-app-frontend-eight.vercel.app"],
-        methods: ["POST", "GET", "PATCH", "DELETE"],
+        methods: ["POST", "GET", "PATCH", "DELETE", "OPTIONS"],
         credentials: true
     }
 ))
