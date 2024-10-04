@@ -34,7 +34,7 @@ app.get('/', (req, res) => {
 })
 
 const PORT = 4000
-const MONGO_URI = process.env.MONGO_URI
+const MONGO_URI = "mongodb+srv://chinmayhari711:ChimmuMCA711@mernapp.a9muixg.mongodb.net/?retryWrites=true&w=majority&appName=MERNapp"
 
 mongoose.connect(MONGO_URI)
     .then(() => {
