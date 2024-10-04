@@ -13,7 +13,7 @@ const Navbar = ( { logged } ) => {
             if (userDetails) {
                 setUserId(userDetails.id)
                 try{
-                    const userResponse = await fetch(`/api/users/${userId}`)
+                    const userResponse = await fetch(`${process.env.REACT_APP_SERVER_URI}/api/users/${userId}`)
                     const user = await userResponse.json()
                     setImage(user.image)
                     console.log("image set" + image)
