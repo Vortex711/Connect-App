@@ -14,9 +14,20 @@ const { checkUser } = require('./middleware/authMiddleware')
 
 const app = express()
 
+const allowedOrigins = [
+    'http://localhost:3000', // Local development
+    'https://connect-app-frontend-eight.vercel.app'
+]
+
 app.use(cors(
     {   
-        origin: ["https://connect-app-frontend-eight.vercel.app"],
+        origin: (origin, callback) => {
+            if (allowedOrigins.includes(origin) || !origin) {
+                callback(null, true);
+            } else {
+                callback(new Error('Not allowed by CORS'));
+            }
+        },
         methods: ["POST", "GET", "PATCH", "DELETE", "OPTIONS"],
         credentials: true
     }
