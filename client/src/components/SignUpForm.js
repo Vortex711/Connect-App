@@ -25,7 +25,7 @@ const SignUpForm = () => {
         formData.append('age', age)
         formData.append('gender', gender)
 
-        const response = await fetch('/api/users/signup', {
+        const response = await fetch(`${process.env.REACT_APP_SERVER_URI}/api/users/signup`, {
             method: 'POST',
             body: formData
         })

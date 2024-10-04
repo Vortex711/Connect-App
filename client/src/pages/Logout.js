@@ -4,7 +4,7 @@ import { Navigate } from "react-router-dom"
 const Logout = () => {
     useEffect(() => {
         const logout = async () => {
-            await fetch('/api/users/logout')
+            await fetch(`${process.env.REACT_APP_SERVER_URI}/api/users/logout`)
             localStorage.removeItem('jwt')
         }
         logout()

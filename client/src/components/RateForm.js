@@ -13,7 +13,7 @@ const RateForm = ( { user } ) => {
         const body = {userId: user._id, appearance, personality, content}
         console.log(body)
         try {
-            const response = await fetch(`/api/ratings/rate`,
+            const response = await fetch(`${process.env.REACT_APP_SERVER_URI}/api/ratings/rate`,
                 {
                     method: 'POST',
                     body: JSON.stringify(body),
@@ -23,7 +23,7 @@ const RateForm = ( { user } ) => {
             
             const review = await response.json()
             console.log(review)
-            const updateResponse = await fetch('/api/ratings/updateUser', {
+            const updateResponse = await fetch(`${process.env.REACT_APP_SERVER_URI}/api/ratings/updateUser`, {
                 method: 'PATCH',
                 body: JSON.stringify({review, remove: false}),
                 headers: {'Content-Type': 'application/json'}

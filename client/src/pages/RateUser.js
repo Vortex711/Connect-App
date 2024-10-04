@@ -9,7 +9,7 @@ const RateUser =  () => {
 
     useEffect(() => {
         const fetchUser = async () => {
-            const response = await fetch(`/api/users/${userId}`)
+            const response = await fetch(`${process.env.REACT_APP_SERVER_URI}/api/users/${userId}`)
             const userDetails = await response.json()
             if (response.ok)  {
                 setUser(userDetails)
