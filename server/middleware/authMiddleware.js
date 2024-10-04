@@ -3,44 +3,48 @@ const User = require('../models/users')
 
 const secret = process.env.SECRET
 const requireAuth = (req, res, next) => {
-    console.log('REQUIRE AUTH')
-    const token = req.cookies.jwt
+    console.log('REQUIRE AUTH');
+    const token = req.cookies.jwt;
 
     if (token) {
         jwt.verify(token, secret, (err, decodedToken) => {
             if (err) {
-                console.log(err.message)
-                res.status(401).json({error: 'Unverified'})
+                console.log('JWT verification error:', err.message);
+                res.status(401).json({ error: 'Unverified' });
             } else {
-                console.log(decodedToken)
-                next()
+                console.log('Decoded Token:', decodedToken);
+                next();
             }
-        })
+        });
     } else { 
-        res.status(401).json({error: 'No token'})
+        console.log('No token found');
+        res.status(401).json({ error: 'No token' });
     }
-} 
+}; 
 
 const checkUser = (req, res, next) => {
-    const token = req.cookies.jwt
-    console.log('CHECKING')
+    const token = req.cookies.jwt;
+    console.log('CHECKING user...');
+
     if (token) {
         jwt.verify(token, secret, async (err, decodedToken) => {
             if (err) {
-                console.log(err.message)
-                res.locals.user = null
-                next()
+                console.log('JWT verification error:', err.message);
+                res.locals.user = null;
+                next();
             } else {
-                console.log(decodedToken)
-                let user = await User.findById(decodedToken.id)
-                res.locals.user = user
-                next()
+                console.log('Decoded Token:', decodedToken);
+                let user = await User.findById(decodedToken.id);
+                res.locals.user = user;
+                next();
             }
-        })
+        });
     } else {
-        res.locals.user = null
-        next()
+        console.log('No token found');
+        res.locals.user = null;
+        next();
     }
-}
+};
+
 
 module.exports = {requireAuth, checkUser}
