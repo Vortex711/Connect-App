@@ -16,7 +16,7 @@ const app = express()
 
 app.use(cors(
     {
-        origin: ["https://connect-app-frontend-eight.vercel.app"],
+        origin: ["https://connect-app-frontend-60xntamzb-chinmay-haris-projects.vercel.app"],
         methods: ["POST", "GET", "PATCH", "DELETE"],
         credentials: true
     }
