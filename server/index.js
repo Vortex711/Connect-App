@@ -16,7 +16,7 @@ const app = express()
 
 app.use(cors(
     {
-        origin: ["https://deploy-mern-lwgq.vercel.app"],
+        origin: ["https://connect-app-puce.vercel.app/"],
         methods: ["POST", "GET"],
         credentials: true
     }
@@ -28,6 +28,10 @@ app.use('/api/users', userRoutes)
 app.use('/api/ratings', ratingRoutes)
 app.use('/api/likes', likeRoutes)
 app.use('/api/dislikes', dislikeRoutes)
+
+app.get('/', (req, res) => {
+    res.json("Hello");
+})
 
 const PORT = process.env.PORT || 4000
 const MONGO_URI = process.env.MONGO_URI
