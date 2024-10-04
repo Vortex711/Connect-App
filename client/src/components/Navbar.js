@@ -8,22 +8,22 @@ const Navbar = ( { logged } ) => {
 
     useEffect(() => {
         const fetchUser = async () => {
-            const userDetails = getUserFromToken()
-            console.log(userDetails)
-            if (userDetails) {
-                setUserId(userDetails.id)
-                try{
-                    const userResponse = await fetch(`${process.env.REACT_APP_SERVER_URI}/api/users/${userId}`)
-                    const user = await userResponse.json()
-                    setImage(user.image)
-                    console.log("image set" + image)
-                } catch(err) {
-                    setImage(null)
-                }
+            // const userDetails = getUserFromToken()
+            // console.log(userDetails)
+            // if (userDetails) {
+            //     setUserId(userDetails.id)
+            //     try{
+            //         const userResponse = await fetch(`${process.env.REACT_APP_SERVER_URI}/api/users/${userId}`)
+            //         const user = await userResponse.json()
+            //         setImage(user.image)
+            //         console.log("image set" + image)
+            //     } catch(err) {
+            //         setImage(null)
+            //     }
                 
-            } else {
-                setUserId(null)
-            }
+            // } else {
+            //     setUserId(null)
+            // }
         }
         
         fetchUser()
