@@ -27,7 +27,7 @@ const Navbar = ( { logged } ) => {
         }
         
         fetchUser()
-    }, [userId, image])
+    }, [])
 
     return (
         <div className="header">
