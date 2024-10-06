@@ -18,7 +18,7 @@
             return decodedToken;
         } catch (error) {
             console.error('Invalid token', error);
-            localStorage.removeItem('token');
+            localStorage.removeItem('jwt');
             return null;
         }
     };
