@@ -33,9 +33,15 @@ const checkUser = (req, res, next) => {
                 next();
             } else {
                 console.log('Decoded Token:', decodedToken);
-                let user = await User.findById(decodedToken.id);
-                res.locals.user = user;
-                next();
+                try {
+                    let user = await User.findById(decodedToken.id);
+                    res.locals.user = user ? user : null;
+                    next();
+                } catch (dbErr) {
+                    console.log('Database error:', dbErr.message);
+                    res.locals.user = null;
+                    next();
+                }
             }
         });
     } else {
