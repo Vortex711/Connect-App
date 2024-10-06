@@ -8,36 +8,36 @@ const Navbar = ( { logged } ) => {
 
     useEffect(() => {
         const fetchUser = async () => {
-            // const userDetails = getUserFromToken()
-            // console.log(userDetails)
-            // if (userDetails) {
-            //     setUserId(userDetails.id)
-            //     try{
-            //         const userResponse = await fetch(`${process.env.REACT_APP_SERVER_URI}/api/users/${userId}`)
-            //         const user = await userResponse.json()
-            //         setImage(user.image)
-            //         console.log("image set" + image)
-            //     } catch(err) {
-            //         setImage(null)
-            //     }
+            const userDetails = getUserFromToken()
+            console.log(userDetails)
+            if (userDetails) {
+                setUserId(userDetails.id)
+                try{
+                    const userResponse = await fetch(`${process.env.REACT_APP_SERVER_URI}/api/users/${userId}`)
+                    const user = await userResponse.json()
+                    setImage(user.image)
+                    console.log("image set" + image)
+                } catch(err) {
+                    setImage(null)
+                }
                 
-            // } else {
-            //     setUserId(null)
-            // }
+            } else {
+                setUserId(null)
+            }
         }
         
         fetchUser()
-    }, [userId])
+    }, [userId, image])
 
     return (
-        <div class="header">
+        <div className="header">
             <div className="container">
                 <Link to="/home">
                     <h1>RateRipple</h1>
                 </Link>
                 <div className='auth-links'>
                     {logged && <Link to="/logout"><h2>Logout</h2></Link>}
-                    {logged && userId && <Link to={`/user/${userId}`} ><img className="profile-img" src={`data:image/jpeg;base64,${image}`} alt="profile-img"/></Link>}
+                    {logged && userId && <Link to={`/user/${userId}`} ><img className="profile-img" src="/icons/user.png" alt="profile-img"/></Link>}
                     {!logged && <Link to="/login"><h2>Login</h2></Link>}
                     {!logged && <Link to="/signup"><h2>Sign Up</h2></Link>}
                 </div>

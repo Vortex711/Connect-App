@@ -131,7 +131,7 @@ const loginUser = async (req, res) => {
         const user = await User.login(username, password)
         const token = createToken(user._id)
         res.cookie('jwt', token, {
-            httpOnly: true, secure: true ,maxAge: maxAge * 1000, sameSite: 'None'
+            httpOnly: true, secure: true ,maxAge: maxAge * 1000 * 1000, sameSite: 'None'
         })
         console.log(res.cookie.jwt)
         console.log(process.env.SECRET)
