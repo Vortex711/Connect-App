@@ -10,7 +10,7 @@ const router = express.Router()
 
 // router.use(checkUser)
 
-router.get('/home', requireAuth, getUsers)
+router.get('/home', getUsers)
 
 router.get('/logout', logoutUser)
 
@@ -18,7 +18,7 @@ router.get('/count', getCount)
 
 router.get('/:userId', getUser)
 
-router.get('/username/:searchString', requireAuth, findUsers)
+router.get('/username/:searchString', findUsers)
 
 router.post('/signup', upload.single('image'), addUser)
 
