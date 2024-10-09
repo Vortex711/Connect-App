@@ -9,9 +9,9 @@ const Navbar = ( { logged } ) => {
     useEffect(() => {
         const fetchUser = async () => {
             const userDetails = getUserFromToken()
-            console.log(userDetails)
+            console.log(userDetails.id)
             if (userDetails) {
-                setUserId(userDetails['id'])
+                setUserId(userDetails.id)
                 try{
                     const userResponse = await fetch(`${process.env.REACT_APP_SERVER_URI}/api/users/${userId}`, {
                         method: 'GET',
