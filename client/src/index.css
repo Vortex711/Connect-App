@@ -223,7 +223,7 @@ input {
   background: var(--dark);
   border: 0;
   color: #fff;
-  padding: 10px 50px;
+  padding: 5px 30px;
   font-family: "Poppins";
   border-radius: 4px;
   cursor: pointer;
@@ -351,6 +351,7 @@ input {
   display: flex;
   justify-content: space-evenly;
   width: 100%;
+  padding-bottom: 20px;
 }
 
 .user-labels, .user-values {
