@@ -35,13 +35,13 @@ const checkLiked = async (req, res) => {
     try {
         const like = await Like.findOne({reviewId, likerId: res.locals.user._id})
         if (like) {
-            return res.status(200).json({liked: true})
+            return res.status(200).json({liked: true});
         } else {
-            return res.status(200).json({liked: false})
+            return res.status(200).json({liked: false});
         }
     } catch (err) {
         console.log(err)
-        return res.status(400).json(err)
+        return res.status(400).json(err);
     }
 }
 
