@@ -16,7 +16,12 @@ const Review = ({rev, rating, username, refresh}) => {
                 refresh()
             }
             try {
-                const response = await fetch(`${process.env.REACT_APP_SERVER_URI}/api/likes/check/${review._id}`)
+                const response = await fetch(`${process.env.REACT_APP_SERVER_URI}/api/likes/check/${review._id}`,
+                    {
+                        method: 'GET',
+                        credentials: 'include',
+                    }
+                )
                 const status = await response.json()
                 console.log(status.liked)
                 if (status.liked) {
@@ -26,7 +31,12 @@ const Review = ({rev, rating, username, refresh}) => {
                     setLiked(false)
                     setLikeOpacity(1)
                 }
-                const res = await fetch(`${process.env.REACT_APP_SERVER_URI}/api/dislikes/check/${review._id}`)
+                const res = await fetch(`${process.env.REACT_APP_SERVER_URI}/api/dislikes/check/${review._id}`,
+                    {
+                        method: 'GET',
+                        credentials: 'include',
+                    }
+                )
                 const json = await res.json()
                 console.log(status.disliked)
                 if (json.disliked) {

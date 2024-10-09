@@ -16,7 +16,10 @@ const Home = () => {
         const fetchUsers = async () => {
             let response, json
             if (searchString) {
-                response = await fetch(`${process.env.REACT_APP_SERVER_URI}/api/users/username/${searchString}`)
+                response = await fetch(`${process.env.REACT_APP_SERVER_URI}/api/users/username/${searchString}`,{
+                    method: 'GET',
+                    credentials: 'include',
+                })
                 setSearchInput('')
                 setPageCount(10)
                 json = await response.json()
@@ -31,8 +34,14 @@ const Home = () => {
                     }    
                 }
             } else {
-                response = await fetch(`${process.env.REACT_APP_SERVER_URI}/api/users/home?p=${currentPage > 0 ? currentPage : 0}`)
-                const pageCountResponse = await fetch(`${process.env.REACT_APP_SERVER_URI}/api/users/count`)
+                response = await fetch(`${process.env.REACT_APP_SERVER_URI}/api/users/home?p=${currentPage > 0 ? currentPage : 0}`,{
+                    method: 'GET',
+                    credentials: 'include',
+                })
+                const pageCountResponse = await fetch(`${process.env.REACT_APP_SERVER_URI}/api/users/count`, {
+                    method: 'GET',
+                    credentials: 'include',
+                })
                 const pageCountData = await pageCountResponse.json()
                 setPageCount(pageCountData)
                 json = await response.json()
