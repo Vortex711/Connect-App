@@ -3,7 +3,7 @@ const User = require('../models/users')
 
 const requireAuth = (req, res, next) => {
     console.log('REQUIRE AUTH');
-    const token = req.cookies.jwt;
+    const token = req.cookies['jwt'];
 
     if (token) {
         jwt.verify(token, process.env.SECRET, (err, decodedToken) => {
@@ -22,7 +22,7 @@ const requireAuth = (req, res, next) => {
 }; 
 
 const checkUser = (req, res, next) => {
-    const token = req.cookies.jwt;
+    const token = req.cookies['jwt'];
     console.log('CHECKING user...');
 
     if (token) {
