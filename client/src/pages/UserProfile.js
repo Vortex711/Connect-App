@@ -23,7 +23,7 @@ const UserProfile = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await fetch(`/api/users/${userId}`, {
+        const response = await fetch(`${process.env.REACT_APP_SERVER_URI}/api/users/${userId}`, {
           method: 'GET',
           credentials: 'include',
       });
@@ -32,35 +32,35 @@ const UserProfile = () => {
         } 
         const data = await response.json();
         setUser(data);
-        const res = await fetch(`/api/ratings/rating/${data.username}`, {
+        const res = await fetch(`${process.env.REACT_APP_SERVER_URI}/api/ratings/rating/${data.username}`, {
           method: 'GET',
           credentials: 'include',
       })
         const status = await res.json();
-        const reviewsCountResponse = await fetch(`/api/ratings/reviews/count/${data.username}`, {
+        const reviewsCountResponse = await fetch(`${process.env.REACT_APP_SERVER_URI}/api/ratings/reviews/count/${data.username}`, {
           method: 'GET',
           credentials: 'include',
       })
         const reviewsCount = await reviewsCountResponse.json()
         setReviewsPageCount(reviewsCount)
-        const reviewsResponse = await fetch(`/api/ratings/reviews/${data.username}?p=${reviewsCurrentPage}`, {
+        const reviewsResponse = await fetch(`${process.env.REACT_APP_SERVER_URI}/api/ratings/reviews/${data.username}?p=${reviewsCurrentPage}`, {
           method: 'GET',
           credentials: 'include',
       })
         const reviewDetails = await reviewsResponse.json()
-        const ratingsCountResponse = await fetch(`/api/ratings/count/${data.username}`, {
+        const ratingsCountResponse = await fetch(`${process.env.REACT_APP_SERVER_URI}/api/ratings/count/${data.username}`, {
           method: 'GET',
           credentials: 'include',
       })
         const ratingsCount = await ratingsCountResponse.json()
         setRatingsPageCount(ratingsCount)
-        const ratingsResponse = await fetch(`/api/ratings/${data.username}?p=${ratingsCurrentPage}`, {
+        const ratingsResponse = await fetch(`${process.env.REACT_APP_SERVER_URI}/api/ratings/${data.username}?p=${ratingsCurrentPage}`, {
           method: 'GET',
           credentials: 'include',
       })
         const ratingDetails = await ratingsResponse.json()
         const getUser = getUserFromToken()
-        const userResponse = await fetch(`/api/users/${getUser.id}`, {
+        const userResponse = await fetch(`${process.env.REACT_APP_SERVER_URI}/api/users/${getUser.id}`, {
           method: 'GET',
           credentials: 'include',
       })
