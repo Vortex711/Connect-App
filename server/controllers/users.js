@@ -38,7 +38,7 @@ const handleLoginErrors = (err) => {
     return errors
 }
 
-const maxAge = 60 * 60
+const maxAge = 60 * 20
 const createToken = (id) => {
     return jwt.sign({ id }, process.env.SECRET, {
         expiresIn: maxAge
@@ -131,7 +131,7 @@ const loginUser = async (req, res) => {
         const user = await User.login(username, password)
         const token = createToken(user._id)
         res.cookie('jwt', token, {
-            httpOnly: true, secure: true ,maxAge: maxAge * 1000 * 1000, sameSite: 'None'
+            httpOnly: true, secure: true ,maxAge: maxAge * 1000, sameSite: 'None'
         })
         console.log(res.cookie.jwt)
         console.log(process.env.SECRET)

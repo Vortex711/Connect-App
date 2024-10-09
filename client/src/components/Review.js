@@ -23,7 +23,7 @@ const Review = ({rev, rating, username, refresh}) => {
                     }
                 )
                 const status = await response.json()
-                console.log(status.liked)
+                console.log(status)
                 if (status.liked) {
                     setLiked(true)
                     setLikeOpacity(0.6)
