@@ -66,14 +66,16 @@ const Review = ({rev, rating, username, refresh}) => {
                 const removed = await fetch(`${process.env.REACT_APP_SERVER_URI}/api/likes/remove`, {
                     method: 'DELETE',
                     body: JSON.stringify({reviewId: review._id}),
-                    headers: {'Content-Type': 'application/json'}
+                    headers: {'Content-Type': 'application/json'},
+                    credentials: 'include'
                 })
                 const json = await removed.json()
                 console.log(json)
                 const response = await fetch(`${process.env.REACT_APP_SERVER_URI}/api/likes/update`, {
                     method: 'PATCH',
                     body: JSON.stringify({reviewId: review._id, liked: liked}),
-                    headers: {'Content-Type': 'application/json'}
+                    headers: {'Content-Type': 'application/json'},
+                    credentials: 'include'
                 })
                 const updatedReview = await response.json()
                 setReview(updatedReview)
@@ -92,14 +94,16 @@ const Review = ({rev, rating, username, refresh}) => {
                 const added = await fetch(`${process.env.REACT_APP_SERVER_URI}/api/likes/add`, {
                     method: 'POST',
                     body: JSON.stringify({reviewId: review._id}),
-                    headers: {'Content-Type': 'application/json'}
+                    headers: {'Content-Type': 'application/json'},
+                    credentials: 'include'
                 })
                 const json = await added.json()
                 console.log(json)
                 const response = await fetch(`${process.env.REACT_APP_SERVER_URI}/api/likes/update`, {
                     method: 'PATCH',
                     body: JSON.stringify({reviewId: review._id, liked: liked}),
-                    headers: {'Content-Type': 'application/json'}
+                    headers: {'Content-Type': 'application/json'},
+                    credentials: 'include'
                 })
                 const updatedReview = await response.json()
                 console.log(updatedReview)
@@ -123,14 +127,16 @@ const Review = ({rev, rating, username, refresh}) => {
                 const removed = await fetch(`${process.env.REACT_APP_SERVER_URI}/api/dislikes/remove`, {
                     method: 'DELETE',
                     body: JSON.stringify({reviewId: review._id}),
-                    headers: {'Content-Type': 'application/json'}
+                    headers: {'Content-Type': 'application/json'},
+                    credentials: 'include'
                 })
                 const json = await removed.json()
                 console.log(json)
                 const response = await fetch(`${process.env.REACT_APP_SERVER_URI}/api/dislikes/update`, {
                     method: 'PATCH',
                     body: JSON.stringify({reviewId: review._id, disliked: disliked}),
-                    headers: {'Content-Type': 'application/json'}
+                    headers: {'Content-Type': 'application/json'},
+                    credentials: 'include'
                 })
                 const updatedReview = await response.json()
                 setReview(updatedReview)
@@ -149,14 +155,16 @@ const Review = ({rev, rating, username, refresh}) => {
                 const added = await fetch(`${process.env.REACT_APP_SERVER_URI}/api/dislikes/add`, {
                     method: 'POST',
                     body: JSON.stringify({reviewId: review._id}),
-                    headers: {'Content-Type': 'application/json'}
+                    headers: {'Content-Type': 'application/json'},
+                    credentials: 'include'
                 })
                 const json = await added.json()
                 console.log(json)
                 const response = await fetch(`${process.env.REACT_APP_SERVER_URI}/api/dislikes/update`, {
                     method: 'PATCH',
                     body: JSON.stringify({reviewId: review._id, disliked: disliked}),
-                    headers: {'Content-Type': 'application/json'}
+                    headers: {'Content-Type': 'application/json'},
+                    credentials: 'include'
                 })
                 const updatedReview = await response.json()
                 console.log(updatedReview)
@@ -177,14 +185,16 @@ const Review = ({rev, rating, username, refresh}) => {
             const response = await fetch(`${process.env.REACT_APP_SERVER_URI}/api/ratings/delete`, {
                 method: 'DELETE',
                 body: JSON.stringify({reviewId: review._id}),
-                headers: {'Content-Type': 'application/json'}
+                headers: {'Content-Type': 'application/json'},
+                credentials: 'include'
             })
             const deleted = await response.json()
             console.log(deleted)
             const updateResponse = await fetch(`${process.env.REACT_APP_SERVER_URI}/api/ratings/updateUser`, {
                 method: 'PATCH',
                 body: JSON.stringify({review: deleted, remove: true}),
-                headers: {'Content-Type': 'application/json'}
+                headers: {'Content-Type': 'application/json'},
+                credentials: 'include'
             })
             const json = updateResponse.json()
             console.log(json)
