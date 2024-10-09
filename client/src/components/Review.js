@@ -38,7 +38,7 @@ const Review = ({rev, rating, username, refresh}) => {
                     }
                 )
                 const json = await res.json()
-                console.log(status.disliked)
+                console.log(json.disliked)
                 if (json.disliked) {
                     setDisliked(true)
                     setDislikeOpacity(0.6)
